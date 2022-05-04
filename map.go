@@ -1,11 +1,24 @@
 package datamodels
 
-import "time"
+import (
+	"strings"
+	"time"
+)
 
 const ArgTimeFormat = "2006-01-02 15:04:05"
 
 // Map is a nested map with helper methods for recursive lookups
 type Map map[string]any
+
+// Select implements selection interface for sigma rule engine
+func (d Map) Select(key string) (any, bool) {
+	return d.Get(strings.Split(key, ".")...)
+}
+
+// Keywords implements keyword interface for sigma rule engine. For now it's a stub.
+func (d Map) Keywords() ([]string, bool) {
+	return nil, false
+}
 
 func (d Map) Set(value any, key ...string) error {
 	if len(key) == 0 {
