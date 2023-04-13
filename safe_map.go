@@ -44,6 +44,8 @@ func (d *SafeMap) GetNumber(key ...string) (float64, bool) {
 	return d.data.GetNumber(key...)
 }
 
+func (d *SafeMap) Raw() Map { return d.data }
+
 func NewSafeMap(data Map) *SafeMap {
 	sm := &SafeMap{
 		RWMutex: sync.RWMutex{},
